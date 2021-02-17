@@ -1,0 +1,4 @@
+name: SqlTest
+version: ${project.version}
+main: me.gepronix.sqltest.SqlTest
+api-version: 1.16

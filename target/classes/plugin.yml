@@ -1,0 +1,4 @@
+name: SqlTest
+version: 1.0-SNAPSHOT
+main: me.gepronix.sqltest.SqlTest
+api-version: 1.16
