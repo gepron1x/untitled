@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.function.Consumer;
 
 public class AsyncSqlWorker {
-    private static final BukkitScheduler scheduler = Bukkit.getScheduler();
     private Connection connection;
     private JavaPlugin owner;
     private String host, user, database, password;
@@ -47,6 +46,15 @@ public class AsyncSqlWorker {
 
             @Override
             public void run() {
+                try {
+                    if(connection != null || !connection.isClosed()) {
+                        consumer.accept(connection);
+                    } else {
+                        connect(conn -> consumer.accept(conn));
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 consumer.accept(connection);
             }
         }.runTaskAsynchronously(owner);
